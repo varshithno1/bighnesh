@@ -19,26 +19,27 @@ const VoiceRecorder: React.FC<VoiceRecorderProps> = ({ onTextChange, isRecording
       recognitionRef.current.continuous = true;
       recognitionRef.current.interimResults = true;
 
-      recognitionRef.current.onresult = (event) => {
+      recognitionRef.current.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = Array.from(event.results)
           .map(result => result[0].transcript)
           .join(' ');
         onTextChange(transcript);
       };
 
-      recognitionRef.current.onerror = (event) => {
-        console.error('Speech recognition error', event.error);
+      recognitionRef.current.onerror = (event: Event) => {
+        console.error('Speech recognition error:', event);
         setIsRecording(false);
+      };
+
+      return () => {
+        if (recognitionRef.current) {
+          recognitionRef.current.stop();
+        }
       };
     } else {
       console.error('Speech recognition not supported in this browser');
+      // Optional: Provide user feedback here
     }
-
-    return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-    };
   }, [onTextChange, setIsRecording]);
 
   const startRecording = () => {
