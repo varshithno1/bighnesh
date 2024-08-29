@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import ImageUpload from '@/components/ImageUpload';
 
-export default function soyabeanDiseaseDetection() {
+export default function SoyabeanDiseaseDetection() {
     const [result, setResult] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -39,7 +39,7 @@ export default function soyabeanDiseaseDetection() {
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold mb-6">soyabean Disease Detection</h1>
             <ImageUpload onUpload={handleUpload} />
-            
+
             {loading && (
                 <div className="mt-4 text-center">
                     <p className="text-lg font-semibold">Analyzing image...</p>
